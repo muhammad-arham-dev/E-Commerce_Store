@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
+import api from "../services/api";
 import {
   Star,
   Package,
@@ -24,11 +25,14 @@ export default function ProductDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios.get(`https://dummyjson.com/products/${id}`).then((res) => {
-      setProduct(res.data);
-      setActiveImage(res.data.images[0]);
+    api.getProductById(id).then(data => {
+      setProduct(data);
+      setActiveImage(data.images[0]);
       setLoading(false);
-    });
+    })
+    .catch(err => {
+        setLoading(false);
+      });
   }, [id]);
 
   const increment = () => setQuantity((prev) => prev + 1);

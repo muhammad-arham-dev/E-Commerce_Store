@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import Skeleton from "../components/Skeleton";
+import api from "../services/api";
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]); // Master list (never filtered)
@@ -20,12 +21,12 @@ export default function Products() {
       setLoading(true);
       try {
         const [prodRes, catRes] = await Promise.all([
-          axios.get("https://dummyjson.com/products?limit=0"),
-          axios.get("https://dummyjson.com/products/categories"),
+          api.getAllProducts(),
+          api.getCategories()
         ]);
-        setAllProducts(prodRes.data.products);
-        setDisplayProducts(prodRes.data.products);
-        setCategories(catRes.data);
+        setAllProducts(products);
+        setDisplayProducts(products);
+        setCategories(catData);
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {
