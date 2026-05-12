@@ -20,12 +20,12 @@ export default function Products() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [prodRes, catRes] = await Promise.all([
+        const [productsData, catData] = await Promise.all([
           api.getAllProducts(),
           api.getCategories()
         ]);
-        setAllProducts(products);
-        setDisplayProducts(products);
+        setAllProducts(productsData);
+        setDisplayProducts(productsData);
         setCategories(catData);
       } catch (err) {
         console.error("Fetch error:", err);

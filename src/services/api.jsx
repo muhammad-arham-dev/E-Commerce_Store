@@ -6,7 +6,8 @@ const api = {
   // Fetch all products (used in Products.jsx)
   getAllProducts: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/products?limit=0`);
+      const response = await axios.get(`${BASE_URL}/products?limit=100`);
+      console.log("API Response:", response.data); // Debug log
       return response.data.products;
     } catch (error) {
       console.error("Error fetching products:", error);
