@@ -25,12 +25,14 @@ export default function ProductDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    api.getProductById(id).then(data => {
-      setProduct(data);
-      setActiveImage(data.images[0]);
-      setLoading(false);
-    })
-    .catch(err => {
+    api
+      .getProductById(id)
+      .then((data) => {
+        setProduct(data);
+        setActiveImage(data.images[0]);
+        setLoading(false);
+      })
+      .catch((err) => {
         setLoading(false);
       });
   }, [id]);
@@ -46,7 +48,6 @@ export default function ProductDetail() {
     );
 
   return (
-    
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-12 pb-20">
       {/* Page Heading */}
       <div className="py-4">
@@ -71,36 +72,37 @@ export default function ProductDetail() {
 
       <div className="grid lg:grid-cols-2 gap-12 bg-gray-200 p-6 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-300">
         {/* Left: Image Gallery */}
-<div className="space-y-6 min-w-0"> {/* Added min-w-0 to prevent flex-child overflow */}
-  <div className="bg-gray-50 rounded-4xl p-8 flex items-center justify-center border border-gray-50 h-100 md:h-137.5 overflow-hidden">
-    <img
-      src={activeImage}
-      alt={product.title}
-      className="max-h-full object-contain transition-all duration-500 transform hover:scale-105"
-    />
-  </div>
-
-  {/* FIXED THUMBNAILS CONTAINER */}
-  <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar max-w-full">
-    {product.images.map((img, i) => (
-      <button
-        key={i}
-        onClick={() => setActiveImage(img)}
-        className={`shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl border-2 transition-all p-2 bg-gray-50 ${
-          activeImage === img
-            ? "border-blue-600 bg-white shadow-md"
-            : "border-transparent opacity-70 hover:opacity-100"
-        }`}
-      >
-        <img
-          src={img}
-          className="w-full h-full object-contain"
-          alt={`view-${i}`}
-        />
-      </button>
-    ))}
-  </div>
-</div>
+        <div className="space-y-6 min-w-0">
+          {" "}
+          {/* Added min-w-0 to prevent flex-child overflow */}
+          <div className="bg-gray-50 rounded-4xl p-8 flex items-center justify-center border border-gray-50 h-100 md:h-137.5 overflow-hidden">
+            <img
+              src={activeImage}
+              alt={product.title}
+              className="max-h-full object-contain transition-all duration-500 transform hover:scale-105"
+            />
+          </div>
+          {/* FIXED THUMBNAILS CONTAINER */}
+          <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar max-w-full">
+            {product.images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveImage(img)}
+                className={`shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl border-2 transition-all p-2 bg-gray-50 ${
+                  activeImage === img
+                    ? "border-blue-600 bg-white shadow-md"
+                    : "border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <img
+                  src={img}
+                  className="w-full h-full object-contain"
+                  alt={`view-${i}`}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Right: Info */}
         <div className="flex flex-col justify-center">
